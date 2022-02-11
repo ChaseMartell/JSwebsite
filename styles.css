@@ -83,7 +83,7 @@
 }
 
 #home {
-  background-image: url("images/PokemonBackgroundImage.PNG");
+  background-image: url("PokemonBackgroundImage.PNG");
   background-size: contain;
   background-attachment: fixed;
   max-width: 100%;
