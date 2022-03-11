@@ -1,0 +1,4 @@
+var appViewModel= {
+    
+    viewModel: teamViewModel
+}
