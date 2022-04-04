@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-sm-12">
+          <form id="<%=viewModel.id%>" autocomplete="off" method="<%=viewModel.method%>" action="<%=viewModel.actionUrl%>" novalidate>
+           
+            <h1><%=view.currentItemId?viewModel.editFormTitle:viewModel.addFormTitle%></h1>
+            <div class="form-row">
+
+            <% viewModel.fields.forEach(function(de){ %>
+            <% if (de.attributes.type != "hidden")  { %>
+              <div class="col-md-12 mb-3 ">
+                <label for="<%=de.name%>"><%=de.label%></label>
+
+                <% if(de.name != 'rating') { %>
+                  <input name="<%=de.name%>" id="<%=de.name%>" type="<%=de.attributes.type%>" value = "<%=view.data[de.name]%>" placeholder="<%=de.attributes.placeholder%>" class="form-control" required="<%=de.validation.required%>">
+
+                <% } else { %>
+                  <input name="<%=de.name%>" id="<%=de.name%>" type="<%=de.attributes.type%>" value = "<%=view.data[de.name]%>" placeholder="<%=de.attributes.placeholder%>" class="form-control" min ="0" max="99" required="<%=de.validation.required%>">
+                <% } %> 
+
+                <div class="invalid-feedback"><%=de.validation.requiredMessage%></div>
+              </div>
+            
+            <% } %>
+            <% }); %>
+            
+          </div>
+             <div class="form-group row">
+                      
+              <div class="col-sm-12">
+                <button id="cancelButton" type="button" class="btn btn-danger">Cancel</button>
+                <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
