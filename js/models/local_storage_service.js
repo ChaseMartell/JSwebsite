@@ -1,13 +1,22 @@
-class LocalStorageService {
+export default class LocalStorageService {
     "use strict"
-    constructor(data, key, options={}) {
+    constructor(data, entity, entitySingle, options={}) {
        
-        this.key = key;
+        this._entity = entity;
+        this._entitySingle = entitySingle;
        
         this.initModel(data, options);
     }
 
     //Getters and Setters
+    get entity() {
+        return this._entity;
+    }
+
+    get entitySingle() {
+        return this._entitySingle;
+    }
+    
     get sortCol() {
         return this.model.options.sortCol;
     }
@@ -40,7 +49,7 @@ class LocalStorageService {
     }
     
     //CRUD FUNCTIONS
-     initModel(data, options){
+    initModel(data, options){
         this.model ={};
         this.model.data=[];
         this.options = options;
@@ -76,10 +85,11 @@ class LocalStorageService {
         else
             return data;
     }
-    async update(obj) {
-        let index = this.getItemIndex(obj.id);
+    async update(id, obj) {
+        let index = this.getItemIndex(id);
         if (index != -1) {
             this.model.data[index] = obj;
+        
             this.store();
         }
     }
@@ -97,15 +107,15 @@ class LocalStorageService {
         this.clear();
     }
      async clear() {
-        localStorage.removeItem(this.key);
+        localStorage.removeItem(this.entity);
         localStorage.clear();
     }
      store() {
-        localStorage[this.key] = JSON.stringify(this.model);
+        localStorage[this.entity] = JSON.stringify(this.model);
     }
      retrieve() {
-        if (localStorage.getItem(this.key) !== null) {
-            this.model = JSON.parse(localStorage[this.key]);
+        if (localStorage.getItem(this.entity) !== null) {
+            this.model = JSON.parse(localStorage[this.entity]);
             return true;
         }
         return false;
@@ -137,8 +147,8 @@ class LocalStorageService {
 
      filter(filterObj) {
         function filterFunc(team) {
-            for (let key in filterObj) {
-                if ( !team[key].toLowerCase().includes(filterObj[key].toLowerCase())) {
+            for (let entity in filterObj) {
+                if ( !team[entity].toLowerCase().includes(filterObj[entity].toLowerCase())) {
                     return false;
                 }
             }
@@ -152,6 +162,10 @@ class LocalStorageService {
     getItemIndex(id) {
         return this.model.data.findIndex(element => element.id == id);
 
+    }
+
+    getItem(id) {
+        return this.model.data.find(element => element.id == id);
     }
     cloneObject(obj) {
         return JSON.parse(JSON.stringify(obj));
