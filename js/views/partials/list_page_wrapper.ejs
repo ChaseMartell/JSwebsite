@@ -5,21 +5,22 @@
           </div>
            <div class="col-4 d-flex justify-content-end">
               <input id="searchInput" class="w-75 me-2 p-1" placeholder="Search...">
-              <button id="clearSearch" class="btn btn-primary">Clear</button>
+              <button id="clearSearch" class="btn btn-info">Clear</button>
             </div>
        
         </div>
       <div class="col-12">
-        <div id="<%=view.alertContainerId%>" class="mt-2"></div>
+        <div id="<%=viewModel.alertContainerId%>" class="mt-2"></div>
         <div id="tableContainer" class="mt-2">
   
         </div>
+        <button id="newButton" class="btn btn-success clear-search-btn ml-2" data-bs-toggle="modal" data-bs-target="#<%=viewModel.editModalContainerId%>">Create Team</button>
         <button id="resetView" class="btn btn-primary clear-search-btn ml-2">Reset View</button>
       </div>
     </div>
   </main>
   
-  <div class="modal" id="myModal">
+  <div class="modal" id="deleteModal">
     <div class="modal-dialog">
       <div class="modal-content">
 
@@ -37,6 +38,18 @@
           <button id="yesButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Yes</button>
         </div>
   
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-body" id="formContainer">
+          
+        </div>
+
       </div>
     </div>
   </div>
